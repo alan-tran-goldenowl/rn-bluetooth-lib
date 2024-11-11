@@ -100,6 +100,7 @@ export default function App() {
 
   const handleConnect = async (id: string) => {
     try {
+      setConnectionStatus('');
       setConnectingId(id);
       setConnectedId('');
       await connectToPeripheral(id);
@@ -117,6 +118,7 @@ export default function App() {
       return;
     }
     try {
+      setConnectionStatus('');
       setConnectedId('');
       setConnectingId(connectedId);
       await disconnectFromPeripheral(connectedId);
@@ -201,8 +203,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    // alignItems: 'center',
+    // justifyContent: 'flex-start',
     paddingTop: 130,
   },
   switchContainer: {
@@ -213,7 +215,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   flatList: {
-    width: '100%',
+    flex: 1,
     padding: 10,
   },
   peripheralItem: {
