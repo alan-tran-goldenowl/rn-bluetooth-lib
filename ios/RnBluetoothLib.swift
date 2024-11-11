@@ -51,10 +51,10 @@ class RnBluetoothLib: RCTEventEmitter, CBCentralManagerDelegate, CBPeripheralDel
   
   @objc(connectToPeripheral:withResolver:withRejecter:)
   func connectToPeripheral(uuid: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
-    if resolveBlock != nil || rejectBlock != nil {
-        reject("Operation in progress", "Another operation is already in progress", nil)
-        return
-    }
+    // if resolveBlock != nil || rejectBlock != nil {
+    //     reject("Operation in progress", "Another operation is already in progress", nil)
+    //     return
+    // }
     print("Attempting to connect to peripheral with UUID: \(uuid)")
     self.resolveBlock = resolve
     self.rejectBlock = reject
@@ -68,10 +68,10 @@ class RnBluetoothLib: RCTEventEmitter, CBCentralManagerDelegate, CBPeripheralDel
   
   @objc(disconnectFromPeripheral:withResolver:withRejecter:)
   func disconnectFromPeripheral(uuid: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
-    if resolveBlock != nil || rejectBlock != nil {
-        reject("Operation in progress", "Another operation is already in progress", nil)
-        return
-    }
+    // if resolveBlock != nil || rejectBlock != nil {
+    //     reject("Operation in progress", "Another operation is already in progress", nil)
+    //     return
+    // }
     print("Attempting to disconnect from peripheral with UUID: \(uuid)")
     self.resolveBlock = resolve
     self.rejectBlock = reject

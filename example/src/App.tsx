@@ -28,8 +28,8 @@ export default function App() {
   const [connectionStatus, setConnectionStatus] = useState<string>('');
   const [isScanning, setIsScanning] = useState<boolean>(false);
   const [discoveredPeripherals, setDiscoveredPeripherals] = useState<
-    Peripheral[]
-  >([]);
+    Record<string, Peripheral>
+  >({});
   const [connectedDevice, setConnectedDevice] = useState<any>({});
 
   useEffect(() => {
@@ -51,16 +51,10 @@ export default function App() {
       'PeripheralDiscovered',
       (peripheral: Peripheral) => {
         if (!peripheral.name.includes('Unknown')) {
-          setDiscoveredPeripherals((prevPeripherals) => {
-            if (
-              !prevPeripherals.some(
-                (p) => p.identifier === peripheral.identifier
-              )
-            ) {
-              return [...prevPeripherals, peripheral];
-            }
-            return prevPeripherals;
-          });
+          setDiscoveredPeripherals((prevPeripherals) => ({
+            ...prevPeripherals,
+            [peripheral.identifier]: peripheral,
+          }));
         }
       }
     );
@@ -94,7 +88,7 @@ export default function App() {
 
   const handleStopScan = () => {
     stopScan();
-    setDiscoveredPeripherals([]);
+    setDiscoveredPeripherals({});
     setIsScanning(false);
   };
 
@@ -152,7 +146,7 @@ export default function App() {
       )}
       <FlatList
         style={styles.flatList}
-        data={discoveredPeripherals}
+        data={Object.values(discoveredPeripherals)}
         keyExtractor={(item) => item.identifier}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -206,6 +200,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     // justifyContent: 'flex-start',
     paddingTop: 130,
+    backgroundColor: 'white',
   },
   switchContainer: {
     flexDirection: 'row',
