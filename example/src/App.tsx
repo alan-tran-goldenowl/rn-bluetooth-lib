@@ -102,13 +102,13 @@ export default function App() {
     try {
       setConnectingId(id);
       setConnectedId('');
-      const res = await connectToPeripheral(id);
+      await connectToPeripheral(id);
       setConnectedId(id);
       setConnectingId('');
     } catch (error) {
       setConnectingId('');
       setConnectedId('');
-      setConnectionStatus(error.message);
+      setConnectionStatus((error as Error).message);
     }
   };
 
@@ -119,14 +119,14 @@ export default function App() {
     try {
       setConnectedId('');
       setConnectingId(connectedId);
-      const res = await disconnectFromPeripheral(connectedId);
+      await disconnectFromPeripheral(connectedId);
       setConnectedDevice({});
       setConnectingId('');
       setConnectedId('');
     } catch (error) {
       setConnectedId('');
       setConnectingId('');
-      setConnectionStatus(error.message);
+      setConnectionStatus((error as Error).message);
     }
   };
 
